@@ -8,7 +8,7 @@ import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 export class ChatService {
   chatServiceURL = 'https://localhost:44385/'; // can be changed if backend runs on different port
 
-  messageReceived = new EventEmitter<Message>();  
+  messageReceivedHere = new EventEmitter<Message>();  
   connectionEstablished = new EventEmitter<Boolean>();  
   
   private connectionIsEstablished = false;  
@@ -29,11 +29,7 @@ export class ChatService {
     this._hubConnection = new HubConnectionBuilder()  
     .withUrl(this.chatServiceURL + 'MessageHub')  
     .build();  
-    // this._hubConnection = new HubConnectionBuilder()  
-    //   .withUrl(window.location.href + 'MessageHub')  
-    //   .build();  
-      console.log('window.locaion.href', window.location.href);
-      console.log("this._hubConnection", this._hubConnection);
+
   }  
   
   private startConnection(): void {  
@@ -52,7 +48,7 @@ export class ChatService {
   
   private registerOnServerEvents(): void {  
     this._hubConnection.on('MessageReceived', (data: any) => {  
-      this.messageReceived.emit(data);  
+      this.messageReceivedHere.emit(data);  
     });  
   }  
 }

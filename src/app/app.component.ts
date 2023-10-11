@@ -36,7 +36,7 @@ export class AppComponent {
   }  
   private subscribeToEvents(): void {  
   
-    this.chatService.messageReceived.subscribe((message: Message) => {  
+    this.chatService.messageReceivedHere.subscribe((message: Message) => {  
       this._ngZone.run(() => {  
         if (message.clientuniqueid !== this.uniqueID) {  
           message.type = "received";  
